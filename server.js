@@ -4,6 +4,11 @@ url = require('url');
 http = require('http');
 request = require('request');
 
+// Don't crash when an error occurs, instead log it
+process.on('uncaughtException', function(err){
+	console.log(err);
+});
+
 // Create our server
 var server;
 server = http.createServer(function(req,res){
@@ -27,6 +32,7 @@ server = http.createServer(function(req,res){
 	var callback = query.callback || null;
 	// check for param existance, error if not
 	if ( !imageUrl || !callback ) {
+		console.log('Missing arguments');
 		res.writeHead(400); // 400 = Bad Request
 		res.end();
 		return;
@@ -39,7 +45,7 @@ server = http.createServer(function(req,res){
 		encoding: 'base64',
 		timeout: 30*1000
 	},function(err,imageRes,imageData){
-		if ( !err && imageRes.statusCode === 200 ) {
+		if ( !err && imageRes && imageRes.statusCode === 200 ) {
 			res.setHeader('Content-Type', 'application/javascript');
 			var imageContentType = imageRes.headers['content-type'];
 			var responseData = 'data:'+imageContentType+';base64,'+imageData;
@@ -50,7 +56,7 @@ server = http.createServer(function(req,res){
 		}
 		else {
 			console.log('Failed image:', imageUrl);
-			res.writeHead(imageRes.statusCode);
+			res.writeHead(imageRes && imageRes.statusCode || 400); // bad request
 			res.end();
 			return;
 		}
