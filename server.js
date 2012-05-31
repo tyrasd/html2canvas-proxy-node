@@ -43,12 +43,13 @@ server = http.createServer(function(req,res){
 		url: imageUrl,
 		method: 'GET',
 		encoding: 'base64',
-		timeout: 30*1000
+		timeout: 60*1000
 	},function(err,imageRes,imageData){
+		var responseData, imageContentType;
 		if ( !err && imageRes && imageRes.statusCode === 200 ) {
 			res.setHeader('Content-Type', 'application/javascript');
-			var imageContentType = imageRes.headers['content-type'];
-			var responseData = 'data:'+imageContentType+';base64,'+imageData;
+			imageContentType = imageRes.headers['content-type'];
+			responseData = 'data:'+imageContentType+';base64,'+imageData;
 			res.write(callback+'('+JSON.stringify(responseData)+')');
 			res.end();
 			console.log('Sent image:', imageUrl);
@@ -57,6 +58,8 @@ server = http.createServer(function(req,res){
 		else {
 			console.log('Failed image:', imageUrl);
 			res.writeHead(imageRes && imageRes.statusCode || 400); // bad request
+			responseData = JSON.stringify('error:Application error');
+			res.write(callback+'('+responseData+')');
 			res.end();
 			return;
 		}
