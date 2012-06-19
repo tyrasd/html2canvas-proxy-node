@@ -10,15 +10,15 @@
 		"html2canvas-proxy",
 		"canvas"
 	],
-    "author": "BugHerd Pty Ltd <support@bugherd.com> (http://www.bugherd.com)",
-    "maintainers": [
-        "Benjamin Lupton <b@lupton.cc> (http://balupton.com)",
-        "Alan Downie <alan@bugherd.com> (http://www.bugherd.com)"
-        "Vincent Brendel <vincent.brendel@gmail.com> (https://github.com/vbrendel)"
-    ],
-    "contributors": [
-        "Benjamin Lupton <b@lupton.cc> (http://balupton.com)"
-    ],
+	"author": "BugHerd Pty Ltd <support@bugherd.com> (http://www.bugherd.com)",
+	"maintainers": [
+		"Benjamin Lupton <b@lupton.cc> (http://balupton.com)",
+		"Alan Downie <alan@bugherd.com> (http://www.bugherd.com)"
+		"Vincent Brendel <vincent.brendel@gmail.com> (https://github.com/vbrendel)"
+	],
+	"contributors": [
+		"Benjamin Lupton <b@lupton.cc> (http://balupton.com)"
+	],
 	"bugs": {
 		"url": "https://github.com/BugHerd/html2canvas-proxy/issues"
 	},
